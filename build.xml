@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="cicd-test" default="build">
+    <property environment="env"/>
+
+    <target name="build" depends="composer,phpunit"/>
+
+    <target name="composer" description="Install vendors using composer.phar">
+        <exec executable="/bin/bash">
+            <arg value="-c" />
+            <arg value="curl -s https://getcomposer.org/installer | php" />
+        </exec>
+        <exec executable="php" failonerror="true">
+            <arg value="composer.phar"/>
+            <arg value="install"/>
+            <arg value="--dev"/>
+            <arg value="--no-progress"/>
+        </exec>
+    </target>
+
+    <target name="phpunit">
+        <exec executable="phpunit" failonerror="false"/>
+    </target>
+
+</project>
