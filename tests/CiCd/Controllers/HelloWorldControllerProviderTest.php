@@ -18,4 +18,9 @@ class HelloWorldControllerProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\CiCd\Controllers\HelloWorldControllerProvider', $controller);
     }
+
+    public function testFail()
+    {
+        //$this->assertTrue(false);
+    }
 }

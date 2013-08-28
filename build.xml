@@ -20,4 +20,9 @@
         <exec executable="phpunit" failonerror="false"/>
     </target>
 
+    <target name="deploy">
+        <exec executable="fab" failonerror="false">
+            <arg value="deploy" />
+        </exec>
+    </target>
 </project>
