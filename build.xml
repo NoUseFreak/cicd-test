@@ -7,6 +7,10 @@
 
     <target name="build" depends="composer,phpunit"/>
 
+    <target name="prepare" description="Prepare for build">
+        <mkdir dir="build/logs"/>
+    </target>
+
     <target name="composer" description="Install vendors using composer.phar">
         <exec executable="/bin/bash">
             <arg value="-c" />
@@ -21,6 +25,8 @@
     <target name="phpunit">
         <exec executable="${php.exec}" failonerror="false">
             <arg value="${phpunit.exec}"/>
+            <arg value="--log-junit"/>
+            <arg value="build/logs/junit.xml"/>
         </exec>
     </target>
 
