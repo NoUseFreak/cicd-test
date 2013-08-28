@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="cicd-test" default="build">
-    <property environment="env"/>
+    <property name="php.exec" location="/usr/local/bin/php"/>
+    <property name="phpunit.exec" location="/usr/local/bin/phpunit"/>
+    <property name="fab.exec" location="/usr/local/bin/fab"/>
 
     <target name="build" depends="composer,phpunit"/>
 
     <target name="composer" description="Install vendors using composer.phar">
         <exec executable="/bin/bash">
             <arg value="-c" />
-            <arg value="curl -s https://getcomposer.org/installer | php" />
+            <arg value="curl -s https://getcomposer.org/installer | ${php.exec}" />
         </exec>
         <exec executable="/bin/bash">
             <arg value="-c" />
-            <arg value="php composer.phar install --dev --no-progress" />
+            <arg value="${php.exec} composer.phar install --dev --no-progress" />
         </exec>
     </target>
 
     <target name="phpunit">
-        <exec executable="phpunit" failonerror="false"/>
+        <exec executable="${php.exec}" failonerror="false">
+            <arg value="${phpunit.exec}"/>
+        </exec>
     </target>
 
     <target name="deploy">
-        <exec executable="fab" failonerror="false">
+        <exec executable="${fab.exec}" failonerror="false">
             <arg value="deploy" />
         </exec>
     </target>
